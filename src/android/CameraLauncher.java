@@ -112,6 +112,7 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
     private boolean correctOrientation;     // Should the pictures orientation be corrected
     private boolean orientationCorrected;   // Has the picture's orientation been corrected
     private boolean allowEdit;              // Should we allow the user to crop the image.
+    private int targetPer;
 
     protected final static String[] permissions = { Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE };
 
@@ -150,6 +151,7 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
             this.encodingType = JPEG;
             this.mediaType = PICTURE;
             this.mQuality = 50;
+            this.targetPer = 1;
 
             //Take the values from the arguments if they're not already defined (this is tricky)
             this.destType = args.getInt(1);
@@ -162,6 +164,7 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
             this.allowEdit = args.getBoolean(7);
             this.correctOrientation = args.getBoolean(8);
             this.saveToPhotoAlbum = args.getBoolean(9);
+            this.targetPer = args.getInt(10);
 
             // If the user specifies a 0 or smaller width/height
             // make it -1 so later comparisons succeed
@@ -1104,6 +1107,10 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
      * @return
      */
     public int[] calculateAspectRatio(int origWidth, int origHeight) {
+        if (this.targetPer != 1) {
+          return new int[]{origWidth * this.targetPer, origHeight * newHeight};
+        }
+
         int newWidth = this.targetWidth;
         int newHeight = this.targetHeight;
 
