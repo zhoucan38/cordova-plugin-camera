@@ -338,7 +338,8 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
      */
     private File createCaptureFile(int encodingType, String fileName) {
         if (fileName.isEmpty()) {
-            fileName = ".Pic";
+            // fixme 照片重命名
+            fileName = "Pic_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         }
 
         if (encodingType == JPEG) {
@@ -633,12 +634,14 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
         String realPath = FileHelper.getRealPath(uri, this.cordova);
 
         // Get filename from uri
-        String fileName = realPath != null ?
+
+        // fixme 照片命名规则修改
+/*         String fileName = realPath != null ?
                 realPath.substring(realPath.lastIndexOf('/') + 1) :
-                "modified." + (this.encodingType == JPEG ? "jpg" : "png");
+                "modified." + (this.encodingType == JPEG ? "jpg" : "png"); */
 
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        //String fileName = "IMG_" + timeStamp + (this.encodingType == JPEG ? ".jpg" : ".png");
+        String fileName = "modified_" + timeStamp + (this.encodingType == JPEG ? ".jpg" : ".png");
         String modifiedPath = getTempDirectoryPath() + "/" + fileName;
 
         OutputStream os = new FileOutputStream(modifiedPath);
