@@ -87,9 +87,9 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
 
     private static final int JPEG = 0;                  // Take a picture of type JPEG
     private static final int PNG = 1;                   // Take a picture of type PNG
-    private static final String GET_PICTURE = "Get Picture";
-    private static final String GET_VIDEO = "Get Video";
-    private static final String GET_All = "Get All";
+    private static final String GET_PICTURE = "选择照片";
+    private static final String GET_VIDEO = "选择视频";
+    private static final String GET_All = "请选择";
 
     public static final int PERMISSION_DENIED_ERROR = 20;
     public static final int TAKE_PIC_SEC = 0;
