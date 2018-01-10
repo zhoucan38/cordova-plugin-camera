@@ -164,7 +164,7 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
             this.allowEdit = args.getBoolean(7);
             this.correctOrientation = args.getBoolean(8);
             this.saveToPhotoAlbum = args.getBoolean(9);
-            this.targetPer = args.getInt(10);
+            this.targetPer = args.getInt(12);
 
             // If the user specifies a 0 or smaller width/height
             // make it -1 so later comparisons succeed
@@ -1107,8 +1107,9 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
      * @return
      */
     public int[] calculateAspectRatio(int origWidth, int origHeight) {
-        if (this.targetPer != 1) {
-          return new int[]{origWidth * this.targetPer, origHeight * newHeight};
+        if (this.targetPer != 100) {
+          double _targetPer = this.targetPer / (double) 100;
+          return new int[] { (int) Math.abs(origWidth * _targetPer), (int) Math.abs(origHeight * _targetPer) };
         }
 
         int newWidth = this.targetWidth;
